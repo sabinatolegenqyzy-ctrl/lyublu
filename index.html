@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Quest</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fce4ec;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        h2 { color: #d81b60; }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 15px 0;
+            border: 2px solid #f06292;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #d81b60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #ad1457; }
+        .hidden { display: none; }
+        .success-msg { color: #4caf50; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="quest-box">
+    <!-- 1-Сұрақ -->
+    <div id="step1">
+        <h2>1-сұрақ</h2>
+        <p>Сенің алғашқы лақап атың?</p>
+        <input type="text" id="ans1" placeholder="Жауабыңыз...">
+        <button onclick="checkStep(1)">Келесі</button>
+    </div>
+
+    <!-- 2-Сұрақ -->
+    <div id="step2" class="hidden">
+        <h2>2-сұрақ</h2>
+        <p>Менің врагым кім?</p>
+        <input type="text" id="ans2" placeholder="Жауабыңыз...">
+        <button onclick="checkStep(2)">Келесі</button>
+    </div>
+
+    <!-- 3-Сұрақ -->
+    <div id="step3" class="hidden">
+        <h2>3-сұрақ</h2>
+        <p>Менің мәңгі махаббатым кім?</p>
+        <input type="text" id="ans3" placeholder="Жауабыңыз...">
+        <button onclick="checkStep(3)">Аяқтау</button>
+    </div>
+
+    <!-- Финал -->
+    <div id="final" class="hidden">
+        <h2 style="font-size: 50px;">❤️</h2>
+        <p class="success-msg">Барлық сұраққа дұрыс жауап бердің!</p>
+        <p>Сені жақсы көремін!</p>
+    </div>
+</div>
+
+<script>
+    function checkStep(step) {
+        if (step === 1) {
+            let val = document.getElementById('ans1').value.toLowerCase().trim();
+            if (val === 'балапаным') {
+                showStep(2);
+            } else {
+                alert('Қате, қайта ойланып көр...');
+            }
+        } 
+        else if (step === 2) {
+            let val = document.getElementById('ans2').value.toLowerCase().trim();
+            // Бірнеше жауапты тексеру
+            if (val === 'алдияр' || val === 'физик' || val === 'алижан') {
+                showStep(3);
+            } else {
+                alert('Бұл емес, басқасын жазып көр...');
+            }
+        } 
+        else if (step === 3) {
+            let val = document.getElementById('ans3').value.toLowerCase().trim();
+            if (val === 'мен' || val === 'әділ' || val === 'адил') {
+                showStep('final');
+            } else {
+                alert('Дұрыс жауапты білесің ғой... 😉');
+            }
+        }
+    }
+
+    function showStep(next) {
+        // Барлық бөлімдерді жасыру
+        document.getElementById('step1').classList.add('hidden');
+        document.getElementById('step2').classList.add('hidden');
+        document.getElementById('step3').classList.add('hidden');
+        
+        // Керекті бөлімді көрсету
+        if (next === 'final') {
+            document.getElementById('final').classList.remove('hidden');
+        } else {
+            document.getElementById('step' + next).classList.remove('hidden');
+        }
+    }
+</script>
+
+</body>
+</html>
